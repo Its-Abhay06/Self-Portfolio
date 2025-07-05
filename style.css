@@ -299,7 +299,7 @@ header ul a:hover{
     border: 1px solid gray;
     background-color: #080020b7;
     border-radius: 20px;
-    transition: 0.5s;
+    transition: 0.3s;
 }
 
 .card h1{
@@ -384,3 +384,5 @@ header ul a:hover{
 .card:nth-child(4) h1{
     bottom: 35%;
 }
+
+/* My project  */
