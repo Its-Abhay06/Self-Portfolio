@@ -1280,4 +1280,9 @@ footer h1{
     }
 }
 
+/* button in anchor */
+button a{
+    text-decoration: none;
+    color: gray;
+}
 
