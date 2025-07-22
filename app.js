@@ -2,6 +2,7 @@
 const video1 = document.querySelector('#projectVideo1');
 const video2 = document.querySelector('#projectVideo2');
 const video3 = document.querySelector('#projectVideo3');
+const hoverSign = document.querySelector('.hover-sign');
 const contactBtn = document.querySelectorAll('.contact-btn');
 const contactSection = document.querySelector('#contact');
 const sideBar = document.querySelector('.sidebar');
@@ -12,44 +13,29 @@ const form = document.getElementById('contactForm');
 // Safe video element list (skip nulls)
 const videoList = [video1, video2, video3].filter(Boolean);
 
-// --- Video Interaction Logic ---
-const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-if (isTouchDevice) {
-  // On mobile/touch devices, use Intersection Observer to play/pause videos on scroll.
-  // This provides a smooth, automatic playback experience without needing to tap.
-  document.querySelectorAll('.hover-sign').forEach(sign => sign.style.display = 'none');
-
-  const videoObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const video = entry.target;
-      if (entry.isIntersecting) {
-        video.play();
-      } else {
-        video.pause();
-      }
-    });
-  }, { rootMargin: '0px', threshold: 0.5 }); // Play when 50% of the video is visible
-
-  videoList.forEach(video => videoObserver.observe(video));
-
-} else {
-  // On desktop, use hover to play/pause.
-  videoList.forEach(function (video) {
-    const vidParent = video.parentElement;
-    const hoverSign = vidParent.querySelector('.hover-sign');
-
-    video.addEventListener('mouseover', function () {
-      video.play();
-      if (hoverSign) hoverSign.classList.add('active');
-    });
-
-    video.addEventListener('mouseout', function () {
-      video.pause();
-      if (hoverSign) hoverSign.classList.remove('active');
-    });
+// Add hover and touch play/pause functionality
+videoList.forEach(function (video) {
+  video.addEventListener('mouseover', function () {
+    video.play();
+    hoverSign.classList.add('active');
   });
-}
+
+  video.addEventListener('mouseout', function () {
+    video.pause();
+    hoverSign.classList.remove('active');
+  });
+
+  // Mobile support: tap to toggle play/pause
+  video.addEventListener('click', function () {
+    if (video.paused) {
+      video.play();
+      hoverSign.classList.add('active');
+    } else {
+      video.pause();
+      hoverSign.classList.remove('active');
+    }
+  });
+});
 
 // Sidebar toggle
 menu.addEventListener('click', function () {
