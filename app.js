@@ -25,15 +25,15 @@ videoList.forEach(function (video) {
     hoverSign.classList.remove('active');
   });
 
-  // Mobile support: tap to play/pause
-  video.addEventListener('touchstart', function () {
-    video.play();
-    hoverSign.classList.add('active');
-  });
-
-  video.addEventListener('touchend', function () {
-    video.pause();
-    hoverSign.classList.remove('active');
+  // Mobile support: tap to toggle play/pause
+  video.addEventListener('click', function () {
+    if (video.paused) {
+      video.play();
+      hoverSign.classList.add('active');
+    } else {
+      video.pause();
+      hoverSign.classList.remove('active');
+    }
   });
 });
 
